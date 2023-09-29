@@ -57,6 +57,85 @@ volumes:
 
 services:
 
+    omega:
+      build:
+        context: ../../omega
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/omega/node_modules
+        - ../../omega:/var/www/omega
+      ports:
+        - "3010:3000"
+      networks:
+        - frontend
+        - backend
+
+    management:
+      build:
+        context: ../../management
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/management/node_modules
+        - ../../management:/var/www/management
+      ports:
+        - "5173:5173"
+      networks:
+        - frontend
+        - backend
+    
+    business:
+      build:
+        context: ../../business
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/business/node_modules
+        - ../../business:/var/www/business
+      ports:
+        - "3013:5173"
+      networks:
+        - frontend
+        - backend
+    
+    main:
+      build:
+        context: ../../main
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/main/node_modules
+        - ../../main:/var/www/main
+      ports:
+        - "3011:3000"
+      networks:
+        - frontend
+        - backend
+    
+    bank:
+      build:
+        context: ../../bank
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/bank/node_modules
+        - ../../bank:/var/www/bank
+      ports:
+        - "3333:3333"
+      networks:
+        - frontend
+        - backend
+
+    notification:
+      build:
+        context: ../../notification
+        dockerfile: Dockerfile
+      volumes:
+        - /var/www/notification/node_modules
+        - ../../notification:/var/www/notification # Mount your local app directory into the container
+      ports:
+        - "3015:3000" # Map the container port to the host port
+      networks:
+        - frontend
+        - backend
+
+
 ### Workspace Utilities ##################################
     workspace:
       build:
