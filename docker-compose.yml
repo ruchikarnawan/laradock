@@ -93,6 +93,19 @@ services:
       networks:
         - frontend
         - backend
+
+    internal:
+      build:
+        context: ../../internal
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /var/www/internal/node_modules
+        - ../../internal:/var/www/internal
+      ports:
+        - "3019:5173"
+      networks:
+        - frontend
+        - backend
     
     main:
       build:
